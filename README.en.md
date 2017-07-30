@@ -1,33 +1,33 @@
 # ArgoAPI [PHP]
-API per visualizzare i dati del registro elettronico "Argo ScuolaNext", per account studenti e genitori
+API to view "Argo ScuolaNext" data, for students and parentss.
 
 *Shortlink: [`https://git.io/v9LKg`](https://git.io/v9LKg)*
 
-*Leggimi in alte lingue: [Italiano](README.md), [English](README.en.md)*
+*Read this in other languages: [Italiano](README.md), [English](README.en.md)*
 
-## Tabella dei contenuti
-  - [1. Includi le API nel tuo progetto](#includi-le-api-nel-tuo-progetto)
-  - [2. Effettua il login](#effettua-il-login)
-  - [3. Fai una richiesta](#fai-una-richiesta)
-    - [Oggi a scuola](#oggi-a-scuola)
-    - [Assenze](#assenze)
-    - [Note disciplinari](#note-disciplinari)
-    - [Voti giornalieri](#voti-giornalieri)
-    - [Voti scrutinio](#voti-scrutinio)
-    - [Compiti](#compiti)
-    - [Argomenti della lezione](#argomenti-della-lezione)
-    - [Promemoria](#promemoria)
-    - [Orario classe](#Orario-classe)
-    - [Docenti](#docenti)
+## Table of Contents
+  - [1. Include APIs in your project](#include-apis-in-your-project)
+  - [2. Log in](#log-in)
+  - [3. Make a request](#make-a-request)
+    - [Today at school](#today-at-school)
+    - [Absences](#absences)
+    - [Disciplinary notes](#disciplinary-notes)
+    - [Daily marks](#daily-marks)
+    - [Final marks](#final-marks)
+    - [Homework](#homework)
+    - [Lesson topics](#lesson-tolpics)
+    - [Class reminder](#class-reminder)
+    - [Class schedule](#class-schedule)
+    - [Teachers](#teachers)
 
-## Includi le API nel tuo progetto
-Devi usare la funzione `require_once()` di PHP per includere le API.
+## Include APIs in your project
+You must use PHP `require_once()` function to include the APIs.
 ```php
 require_once("argoapi.php");
 ```
 
-## Effettua il login
-Per effettuare il login devi creare un oggetto `argoUser`, con codice scuola, username e password come parametri.
+## Log in
+To log in you must create an `argoUser` object, with school code, username and password as parameters.
 ```php
 try {
 	$argo = new argoUser("SCHOOL_CODE", "USERNAME", "PASSWORD");
@@ -37,7 +37,7 @@ catch (Exception $e) {
 }
 ```
 
-## Fai una richiesta
+## Make a request
 ```php
 try {
 	$request = $argo->REQUEST(parameters);
@@ -46,19 +46,19 @@ catch (Exception $e) {
 	echo 'ArgoAPI exception: ', $e->getMessage(), "\n";
 }
 ```
-Negli esempi sotto ometterò l'handling delle eccezioni.
-Voi dovreste usarlo.
+In the following examples, I will omit the code for handling exceptions.
+You should use it.
 
-### Oggi a scuola
-Oggi:
+### Today at school
+Current day:
 ```php
 $request = $argo->oggiScuola();
 ```
-Giorno specifico (yyyy-mm-dd):
+Specified day (yyyy-mm-dd):
 ```php
 $request = $argo->oggiScuola("2017-03-14");
 ```
-Esempio output:
+Example output:
 ```
 Array
 (
@@ -117,11 +117,11 @@ Array
 )
 ```
 
-### Assenze
+### Absences
 ```php
 $request = $argo->assenze();
 ```
-Esempio output:
+Example output:
 ```
 Array
 (
@@ -146,11 +146,11 @@ Array
 )
 ```
 
-### Note disciplinari
+### Disciplinary notes
 ```php
 $request = $argo->noteDisciplinari();
 ```
-Esempio output:
+Example output:
 ```
 Array
 (
@@ -172,11 +172,11 @@ Array
 )
 ```
 
-### Voti giornalieri
+### Daily marks
 ```php
 $request = $argo->votiGiornalieri();
 ```
-Esempio output:
+Example output:
 ```
 Array
 (
@@ -201,11 +201,11 @@ Array
 )
 ```
 
-### Voti scrutinio
+### Final marks
 ```php
 $request = $argo->votiScrutinio();
 ```
-Esempio output:
+Example output:
 ```
 Array
 (
@@ -235,11 +235,11 @@ Array
 )
 ```
 
-### Compiti
+### Homeworks
 ```php
 $request = $argo->compiti();
 ```
-Esempio output:
+Example output:
 ```
 Array
 (
@@ -259,11 +259,11 @@ Array
 )
 ```
 
-### Argomenti della lezione
+### Lesson topics
 ```php
 $request = $argo->argomenti();
 ```
-Esempio output:
+Example output:
 ```
 Array
 (
@@ -283,11 +283,11 @@ Array
 )
 ```
 
-### Promemoria
+### Class reminder
 ```php
 $request = $argo->promemoria();
 ```
-Esempio output:
+Example output:
 ```
 Array
 (
@@ -307,11 +307,11 @@ Array
 )
 ```
 
-### Orario classe
+### Class schedule
 ```php
 $request = $argo->orario();
 ```
-Esempio output:
+Example output:
 ```
 Array
 (
@@ -338,11 +338,11 @@ Array
 )
 ```
 
-### Docenti
+### Teachers
 ```php
 $request = $argo->docenti();
 ```
-Esempio output:
+Example output:
 ```
 Array
 (
@@ -364,3 +364,8 @@ Array
 	    [...]
 )
 ```
+
+### Translation errors
+I'm sorry for any translation errors.
+Please report to cristian@cristianlivella.com.
+Thank you :)
