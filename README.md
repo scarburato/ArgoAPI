@@ -36,7 +36,7 @@ catch (Exception $e) {
 	echo 'ArgoAPI exception: ', $e->getMessage(), "\n";
 }
 ```
-###Importante!
+### Importante!
 Se hai bisogno di salvare una sessione, NON salvare la password, ma salva il token:
 ```php
 $token = $argo->authToken;
