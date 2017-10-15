@@ -28,13 +28,33 @@ class argoUser {
 		curl_close($ch);
 		return array("output" => $output, "httpcode" => $httpcode);
 	}
-	public function __construct($cod_min, $username, $password) {
-		$header = array("x-cod-min: ".$cod_min, "x-user-id: ".$username, "x-pwd: ".$password);
-		$curl = $this->curl("login", $header);
-		if ($curl['httpcode']==200) {
+	public function __construct($cod_min, $username, $password, $loginwithtoken = 0) {
+		if ($loginwithtoken==0) {
+			$header = array("x-cod-min: ".$cod_min, "x-user-id: ".$username, "x-pwd: ".$password);
+			$curl = $this->curl("login", $header);
+			if ($curl['httpcode']==200) {
+				$this->username = $username;
+				$curl = json_decode($curl['output']);
+				$token = $curl->token;
+				$header = array("x-auth-token: ".$token, "x-cod-min: ".$cod_min);
+				$curl = $this->curl("schede", $header);
+				if ($curl['httpcode']==200) {
+					$curl = ((array) json_decode($curl['output'])[0]);
+					foreach ($curl as $thisKey => $thisCurl) {
+						$this->$thisKey = $thisCurl;
+					}
+				}
+				else {
+					throw new Exception("Unable to get user info");
+				}
+			}
+			else {
+				throw new Exception("Unable to login");
+			}
+		}
+		elseif ($loginwithtoken==1) {
 			$this->username = $username;
-			$curl = json_decode($curl['output']);
-			$token = $curl->token;
+			$token = $password;
 			$header = array("x-auth-token: ".$token, "x-cod-min: ".$cod_min);
 			$curl = $this->curl("schede", $header);
 			if ($curl['httpcode']==200) {
@@ -44,11 +64,8 @@ class argoUser {
 				}
 			}
 			else {
-				throw new Exception("Unable to get user info");
+				throw new Exception("Unable to login with token");
 			}
-		}
-		else {
-			throw new Exception("Unable to login");
 		}
 	}	
 	public function oggiScuola($datGiorno = datGiorno) {
